@@ -9,8 +9,11 @@ const transporter = nodemailer.createTransport({
   service: "gmail",
   auth: {
     user: "luis@mojaai.com",
-    pass: "gdra ddvr hwkj plbg"
-  }
+    pass: "gdra ddvr hwkj plbg",
+  },
+  port: 587,
+  secure: false,
+  requireTLS: true,
 });
 
 app.post("/webhook", async (req, res) => {
