@@ -6,14 +6,13 @@ app.use(express.json());
 
 // EMAIL CONFIG (Gmail)
 const transporter = nodemailer.createTransport({
-  service: "gmail",
-  auth: {
-    user: "luis@mojaai.com",
-    pass: "gdra ddvr hwkj plbg",
-  },
+  host: "smtp.gmail.com",
   port: 587,
   secure: false,
-  requireTLS: true,
+  auth: {
+    user: process.env.EMAIL_USER,
+    pass: process.env.EMAIL_PASS,
+  },
 });
 
 app.post("/webhook", async (req, res) => {
