@@ -19,6 +19,7 @@
   "description": "",
   "dependencies": {
     "express": "^5.2.1",
-    "nodemailer": "^8.0.5"
+    "nodemailer": "^8.0.5",
+    "resend": "^6.11.0"
   }
 }
