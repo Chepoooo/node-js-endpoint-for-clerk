@@ -1,19 +1,10 @@
 const express = require("express");
-const nodemailer = require("nodemailer");
+const { Resend } = require("resend");
 
 const app = express();
 app.use(express.json());
 
-// EMAIL CONFIG (Gmail)
-const transporter = nodemailer.createTransport({
-  host: "smtp.gmail.com",
-  port: 587,
-  secure: false,
-  auth: {
-    user: process.env.EMAIL_USER,
-    pass: process.env.EMAIL_PASS,
-  },
-});
+const resend = new Resend(process.env.RESEND_API_KEY);
 
 app.post("/webhook", async (req, res) => {
   try {
@@ -21,23 +12,25 @@ app.post("/webhook", async (req, res) => {
 
     console.log("📩 Clerk event received:", event.type);
 
-    // ONLY trigger on user.created
     if (event.type === "user.created") {
-      const email = event.data?.email_addresses?.[0]?.email_address;
+      const email =
+        event.data?.email_addresses?.[0]?.email_address;
 
-      await transporter.sendMail({
-        from: "Moja Alerts <luis@mojaai.com>",
+      console.log("📤 Sending email via Resend...");
+
+      await resend.emails.send({
+        from: "Moja Alerts <onboarding@resend.dev>",
         to: "luis@mojaai.com",
-        subject: "🔥 New Moja Customer Created",
-        text: `New user created:\n\nEmail: ${email}`
+        subject: "🔥 New Clerk User Created",
+        text: `New user created:\n\nEmail: ${email}`,
       });
 
-      console.log("📧 Email sent!");
+      console.log("📬 Email sent successfully!");
     }
 
     res.status(200).send("ok");
   } catch (error) {
-    console.error(error);
+    console.error("Webhook error:", error);
     res.status(500).send("error");
   }
 });
