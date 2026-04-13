@@ -27,8 +27,8 @@ app.post("/webhook", async (req, res) => {
       const email = event.data?.email_addresses?.[0]?.email_address;
 
       await transporter.sendMail({
-        from: "Moja Alerts <YOUR_EMAIL@gmail.com>",
-        to: "YOUR_EMAIL@gmail.com",
+        from: "Moja Alerts <luis@mojaai.com>",
+        to: "luis@mojaai.com",
         subject: "🔥 New Moja Customer Created",
         text: `New user created:\n\nEmail: ${email}`
       });
