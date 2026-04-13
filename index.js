@@ -20,7 +20,11 @@ app.post("/webhook", async (req, res) => {
 
       await resend.emails.send({
         from: "Moja Alerts <onboarding@resend.dev>",
-        to: "luis@mojaai.com",
+        to: [
+          "luis@mojaai.com",
+          "eric@mojaai.com",
+          "max@mojaai.com"
+        ],
         subject: "🔥 New Clerk User Created",
         text: `New user created:\n\nEmail: ${email}`,
       });
