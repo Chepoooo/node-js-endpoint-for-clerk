@@ -19,7 +19,7 @@ app.post("/webhook", async (req, res) => {
       console.log("📤 Sending email via Resend...");
 
       await resend.emails.send({
-        from: "Moja Alerts <onboarding@resend.dev>",
+        from: "Moja Alerts <alerts@mojaai.com>",
         to: [
           "luis@mojaai.com",
           "eric@mojaai.com",
