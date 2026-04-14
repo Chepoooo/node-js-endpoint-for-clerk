@@ -18,16 +18,20 @@ app.post("/webhook", async (req, res) => {
 
       console.log("📤 Sending email via Resend...");
 
-      await resend.emails.send({
-        from: "Moja Alerts <alerts@mojaai.com>",
-        to: [
+      const recipients = [
           "luis@mojaai.com",
           "eric@mojaai.com",
           "max@mojaai.com"
-        ],
-        subject: "🔥 New Clerk User Created",
-        text: `New user created:\n\nEmail: ${email}`,
-      });
+        ];
+
+        for (const recipient of recipients) {
+          await resend.emails.send({
+            from: "Moja Alerts <onboarding@resend.dev>",
+            to: recipient,
+            subject: "🔥 New Clerk User Created",
+            text: `New user created:\n\nEmail: ${email}`,
+          });
+        }
 
       console.log("📬 Email sent successfully!");
     }
